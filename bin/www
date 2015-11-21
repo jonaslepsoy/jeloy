@@ -110,6 +110,10 @@ var initTeams = function(){
 }
 initTeams();
 
+var roles = ["King", "Saboteur", "EMP", "Engineer", "Soldier"];
+
+var assignedRoles = {};
+
 // On new connections
 io.on('connection', function (socket) {
   console.log('Got a connection');
@@ -118,13 +122,21 @@ io.on('connection', function (socket) {
     var id = socket.id;
     if(teams.blue.players.indexOf(id) === -1 && teams.red.players.indexOf(id) === -1) {
       if(teams.red.players.length > teams.blue.players.length) {
-        console.log('A player have joined the blue team');
+        var roleindex = teams.blue.players.length;
+        if (roleindex > roles.length) { roleindex = roles.length - 1 }
+        var role = roles[roleindex];
+        assignedRoles[id] = role;
+        console.log('A player have joined the blue team as ' + role);
         teams.blue.players.push(id);
-        socket.emit('joined',{'team': 'blue'});
+        socket.emit('joined',{'team': 'blue', 'role': role});
       } else {
-        console.log('A player have joined the red team');
+        var roleindex = teams.red.players.length;
+        if (roleindex > roles.length) { roleindex = roles.length - 1 }
+        var role = roles[roleindex];
+        assignedRoles[id] = role;
+        console.log('A player have joined the red team as ' + role);
         teams.red.players.push(id);
-        socket.emit('joined',{'team': 'red'});
+        socket.emit('joined',{'team': 'red', 'role': role});
       }
       io.sockets.emit('teams',teams);
     } else if(teams.blue.players.indexOf(id) > -1) {

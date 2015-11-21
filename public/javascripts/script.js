@@ -22,6 +22,7 @@ function reset() {
 
 socket.on('joined', function(msg){
   console.log(msg);
+  $('#rolelabel').text(msg.role);
   $('#capbutton').removeClass("hidden");
 });
 

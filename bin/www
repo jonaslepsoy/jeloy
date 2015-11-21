@@ -174,13 +174,13 @@ var winscore = 200;
 function update(){
     beacons.update(teams);
     // We are done, emit status to all clients
-    if (teams.red.score > winscore) {
+    /*if (teams.red.score > winscore) {
       io.sockets.emit('gameover', {'winner':'red'} );
       clearInterval(game);
     } else if (teams.blue.score > winscore) {
       io.sockets.emit('gameover', {'winner':'blue'} );
       clearInterval(game);
-    }
+    }*/
     io.sockets.emit('beacons',beacons.items);
     io.sockets.emit('teams',teams);
 }

@@ -49,9 +49,9 @@ function update(teams) {
 }
 
 function addUser(beaconName, id) {
-    console.log(socket.id, beaconName);
+    console.log(id, beaconName);
     beacons[beaconName].cappers.push(id);
-    console.log(beacons.items);
+    console.log(beacons);
 }
 
 module.exports = {

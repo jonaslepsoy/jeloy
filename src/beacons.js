@@ -53,7 +53,7 @@ function update(teams) {
     } else if (red < blue) {
       if(beacons[beacon].score > -100) {
         if (blueRolesOnBeacon.indexOf("King") >= 0 && beacons[beacon].score <= 0) {
-          beacons[beacon].score+=40;
+          beacons[beacon].score-=40;
         }
         beacons[beacon].score-=10;
         if (beacons[beacon].score < -100) { beacons[beacon].score = -100 }

@@ -160,11 +160,18 @@ io.on('connection', function (socket) {
 });
 
 // Main game loop
-setInterval(update,1000)
+var game = setInterval(update,1000)
 
 function update(){
     beacons.update(teams);
     // We are done, emit status to all clients
+    if (teams.red.score > 200) {
+      io.sockets.emit('gameover', {'winner':'red'} );
+      clearInterval(game);
+    } else if (teams.blue.score > 200) {
+      io.sockets.emit('gameover', {'winner':'blue'} );
+      clearInterval(game);
+    }
     io.sockets.emit('beacons',beacons.items);
     io.sockets.emit('teams',teams);
 }

@@ -30,16 +30,22 @@ function update(teams) {
     var blueRolesOnBeacon = [];
     var redRolesOnBeacon = [];
     for(var i = 0;i < beacons[beacon].cappers.length;i++){
-      console.log(beacons[beacon].cappers[i]);
-      console.log('Red: ', teams.red.players.indexOf(beacons[beacon].cappers[i]) > -1);
-      console.log('Blue: ', teams.blue.players.indexOf(beacons[beacon].cappers[i]) > -1);
-      if(teams.red.players.indexOf(beacons[beacon].cappers[i]) > -1){
-        redRolesOnBeacon.push(assignedRoles[beacons[beacon].cappers[i]]);
-        red++;
+      var capperid = beacons[beacon].cappers[i];
+      var role = assignedRoles[capperid];
+      console.log(capperid);
+      console.log('Red: ', teams.red.players.indexOf(capperid) > -1);
+      console.log('Blue: ', teams.blue.players.indexOf(capperid) > -1);
+      if(teams.red.players.indexOf(capperid) > -1) {
+        redRolesOnBeacon.push(role);
+        if (!(beacons[beacon].score < 0 && role ==="King")) {
+          red++;
+        }
       }
-      if (teams.blue.players.indexOf(beacons[beacon].cappers[i]) > -1){
-        blueRolesOnBeacon.push(assignedRoles[beacons[beacon].cappers[i]]);
-        blue++;
+      if (teams.blue.players.indexOf(capperid) > -1) {
+        blueRolesOnBeacon.push(role);
+        if (!(beacons[beacon].score > 0 && role ==="King")) {
+          blue++;
+        }
       }
     }
     if(red > blue){

@@ -6,3 +6,11 @@ body {
 a {
   color: #00B7FF;
 }
+
+.score {
+  font-size:2em;
+}
+
+.score span {
+  padding-left: .5em
+}

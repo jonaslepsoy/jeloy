@@ -153,6 +153,7 @@ io.on('connection', function (socket) {
 
   socket.on('reset game', function () {
     console.log('Resetting game');
+    beacons.init();
     init();
     io.sockets.emit('teams',teams);
   });

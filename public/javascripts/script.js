@@ -26,7 +26,9 @@ socket.on('joined', function(msg){
 });
 
 socket.on('beacons', function(beacons){
-  console.log(beacons);
+  $.each(beacons, function(beaconName,beacon){
+    $('#'+beaconName.split(' ', 1)[0]).text(beacon.score);
+  });
 });
 
 socket.on('teams', function(teams){

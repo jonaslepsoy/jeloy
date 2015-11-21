@@ -38,9 +38,9 @@ function update(teams) {
       }
     }
     if(red > blue){
-      beacons[beacon].score++;
+      beacons[beacon].score+=10;
     } else if (red < blue) {
-      beacons[beacon].score--;
+      beacons[beacon].score-=10;
     }
     console.log('Score for ' + beacon + ' is ' + beacons[beacon].score);
 

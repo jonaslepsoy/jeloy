@@ -1,0 +1,35 @@
+extends layout
+
+block content
+  .navbar.navbar-inverse.navbar-fixed-top(role='navigation')
+      .container-fluid
+        .navbar-header
+          button.navbar-toggle(type='button', data-toggle='collapse', data-target='.navbar-collapse')
+            span.sr-only Toggle navigation
+            span.icon-bar
+            span.icon-bar
+            span.icon-bar
+          a.navbar-brand(href='#') Capture the flag @ Jeløya Radio
+        .navbar-collapse.collapse
+          ul.nav.navbar-nav.navbar-right
+            li.dropdown
+              a.dropdown-toggle(href="#" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false") Controls
+                span.caret
+                  ul.dropdown-menu
+                    li
+                      a(href="#") Start game
+                    li
+                      a(href="#") Stop game
+                    li
+                      a(href="#") Reset game
+    .container-fluid
+      .row
+        .col-xs-12.main
+          h1.page-header Dashboard
+          .row.players
+            .col-xs-6
+              h2.primary Blue team
+              #blue
+            .col-xs-6
+              h2.danger Red team
+              #blue

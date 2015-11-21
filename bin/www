@@ -119,11 +119,11 @@ io.on('connection', function (socket) {
     if(teams.red.players.length > teams.blue.players.length) {
       console.log('A player have joined the blue team');
       teams.blue.players.push(id);
-      socket.emit('joined',{'msg': 'joined team blue'});
+      socket.emit('joined',{'team': 'blue'});
     } else {
       console.log('A player have joined the red team');
       teams.red.players.push(id);
-      socket.emit('joined',{'msg': 'joined team red'});
+      socket.emit('joined',{'team': 'red'});
     }
     io.sockets.emit('teams',teams);
   });

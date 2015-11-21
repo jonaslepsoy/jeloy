@@ -66,6 +66,7 @@ function drawChart(beaconName, beacon) {
   ]);
 
   var options = {
+    backgroundColor: 'transparent',
     legend: 'none',
     slices: {
       0: { color: 'blue' },

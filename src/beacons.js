@@ -2,9 +2,9 @@
 var beacons = {};
 
 var beaconNames = [
-  'Buenos Aires',
+  'Kjeller',
   'Lima',
-  'Santiago',
+  'Kjeller 2',
   'Shanghai'
 ];
 

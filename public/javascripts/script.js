@@ -29,13 +29,13 @@ socket.on('joined', function(msg){
 socket.on('beacons', function(beacons){
   $.each(beacons, function(beaconName,beacon){
     if (beacon.cappedby == 1) {
-      $('#'+beaconName.split(' ', 1)[0]).parent().css('color', 'red');
+      $('#'+beaconName.replace(/\s/g, '')).parent().css('color', 'red');
     } else if (beacon.cappedby == -1) {
-      $('#'+beaconName.split(' ', 1)[0]).parent().css('color', 'blue');
+      $('#'+beaconName.replace(/\s/g, '')).parent().css('color', 'blue');
     } else {
-      $('#'+beaconName.split(' ', 1)[0]).parent().css('color', 'black');
+      $('#'+beaconName.replace(/\s/g, '')).parent().css('color', 'black');
     }
-    $('#'+beaconName.split(' ', 1)[0]).text(beacon.score);
+    $('#'+beaconName.replace(/\s/g, '')).text(beacon.score);
     drawChart(beaconName,beacon);
   });
 });
@@ -54,9 +54,6 @@ socket.on('teams', function(teams){
 });
 
 function drawChart(beaconName, beacon) {
-  if(beacon && typeof beacon.score === undefined){
-    beacon.score = 0;
-  }
   // Red is positive
   // Blue is negative
   var redScore = beacon.score < 0 ? 0 : beacon.score;
@@ -80,11 +77,11 @@ function drawChart(beaconName, beacon) {
   };
 
   if(beaconName.split){
-    var chart = new google.visualization.PieChart(document.getElementById(beaconName.split(' ', 1)[0]));
+    var chart = new google.visualization.PieChart(document.getElementById(beaconName.replace(/\s/g, '')));
     chart.draw(data, options);
   }
 }
 
 $(document).ready(function(){
-  google.load("visualization", "1", {packages:["corechart"]});  
+  google.load("visualization", "1", {packages:["corechart"]});
 });

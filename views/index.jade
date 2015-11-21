@@ -13,9 +13,9 @@ block content
         form.navbar-form.navbar-left(id='capform')
           .form-group
             select(id="cap")
-              option(value="Buenos Aires") Buenos Aires
+              option(value="Kjeller") Kjeller
               option(value="Lima") Lima
-              option(value="Santiago") Santiago
+              option(value="Kjeller 2") Kjeller 2
               option(value="Shanghai") Shanghai
             button.btn.btn-default.hidden(id="capbutton" onclick="event.preventDefault();window.cap(this)") Cap
         .navbar-collapse.collapse
@@ -32,12 +32,12 @@ block content
                       a(href="#" onclick="window.reset()") Reset game
     .container-fluid
       .row.score.text-center
-        .col-xs-3 Buenos Aires
-          span#Buenos
+        .col-xs-3 Kjeller
+          span#Kjeller
         .col-xs-3 Lima
           span#Lima
-        .col-xs-3 Santiago
-          span#Santiago
+        .col-xs-3 Kjeller 2
+          span#Kjeller2
         .col-xs-3 Shanghai
           span#Shanghai
       .row

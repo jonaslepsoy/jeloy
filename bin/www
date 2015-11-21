@@ -170,7 +170,7 @@ function startGameLoop() {
 startGameLoop();
 
 
-var winscore = 20;
+var winscore = 200;
 function update(){
     beacons.update(teams);
     // We are done, emit status to all clients

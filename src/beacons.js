@@ -1,4 +1,6 @@
 
+var beacons = {};
+
 var beaconNames = [
   'Buenos Aires',
   'Lima',
@@ -16,7 +18,8 @@ function init() {
   console.log(beacons);
 }
 
-var beacons = {};
+init();
+
 
 module.exports = {
     items: beacons

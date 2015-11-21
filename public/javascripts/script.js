@@ -32,6 +32,8 @@ socket.on('beacons', function(beacons){
 });
 
 socket.on('teams', function(teams){
+   $('#redheader').text("Red: "  + teams.red.score);
+   $('#blueheader').text("Blue: "  + teams.red.score);
    $('#red').empty();
    $('#blue').empty();
    $.each(teams.red.players, function(){

@@ -45,10 +45,10 @@ socket.on('teams', function(teams){
    $('#red').empty();
    $('#blue').empty();
    $.each(teams.red.players, function(){
-     $('#red').append('<div class="col-xs-4"><img src="https://robohash.org/' + this + '?set=set3"/></div>');
+     $('#red').append('<div class="col-xs-4"><img src="https://robohash.org/' + this + '?set=set3&size=200x200"/></div>');
    });
    $.each(teams.blue.players, function(){
-     $('#blue').append('<div class="col-xs-4"><img src="https://robohash.org/' + this + '?set=set3"/></div>');
+     $('#blue').append('<div class="col-xs-4"><img src="https://robohash.org/' + this + '?set=set3&size=200x200"/></div>');
    })
 });
 

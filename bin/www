@@ -116,16 +116,22 @@ io.on('connection', function (socket) {
 
   socket.on('join', function () {
     var id = socket.id;
-    if(teams.red.players.length > teams.blue.players.length) {
-      console.log('A player have joined the blue team');
-      teams.blue.players.push(id);
-      socket.emit('joined',{'team': 'blue'});
-    } else {
-      console.log('A player have joined the red team');
-      teams.red.players.push(id);
-      socket.emit('joined',{'team': 'red'});
+    if(teams.blue.players.indexOf(id) === -1 && teams.red.players.indexOf(id) === -1) {
+      if(teams.red.players.length > teams.blue.players.length) {
+        console.log('A player have joined the blue team');
+        teams.blue.players.push(id);
+        socket.emit('joined',{'team': 'blue'});
+      } else {
+        console.log('A player have joined the red team');
+        teams.red.players.push(id);
+        socket.emit('joined',{'team': 'red'});
+      }
+      io.sockets.emit('teams',teams);
+    } else if(teams.blue.players.indexOf(id) > -1) {
+        socket.emit('joined',{'error': 'player already joined team blue'});
+    } else if(teams.red.players.indexOf(id) > -1) {
+        socket.emit('joined',{'error': 'player already joined team red'});
     }
-    io.sockets.emit('teams',teams);
   });
 
   socket.on('cap', function (beaconName) {

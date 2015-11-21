@@ -12,5 +12,7 @@ a {
 }
 
 .score span {
-  padding-left: .5em
+  padding-left: .5em;
+  display:block;
+  height:180px;
 }

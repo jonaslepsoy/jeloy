@@ -154,21 +154,30 @@ io.on('connection', function (socket) {
     console.log('Resetting game');
     beacons.initBeacons();
     initTeams();
+    startGameLoop();
     io.sockets.emit('teams',teams);
   });
 
 });
 
-// Main game loop
-var game = setInterval(update,1000)
+var game;
+function startGameLoop() {
+  if (game) {
+    clearInterval(game);
+  }
+  game = setInterval(update,1000)
+}
+startGameLoop();
 
+
+var winscore = 20;
 function update(){
     beacons.update(teams);
     // We are done, emit status to all clients
-    if (teams.red.score > 200) {
+    if (teams.red.score > winscore) {
       io.sockets.emit('gameover', {'winner':'red'} );
       clearInterval(game);
-    } else if (teams.blue.score > 200) {
+    } else if (teams.blue.score > winscore) {
       io.sockets.emit('gameover', {'winner':'blue'} );
       clearInterval(game);
     }

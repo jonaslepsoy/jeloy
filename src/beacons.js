@@ -8,12 +8,12 @@ var beaconNames = [
   'Shanghai'
 ];
 
-
 var initBeacons = function() {
   beaconNames.forEach(function(beacon) {
     beacons[beacon] = {
         score: 0,
-        cappers: []
+        cappers: [],
+        cappedby: 0
     };
   });
 }
@@ -23,8 +23,7 @@ initBeacons();
 function update(teams) {
   var t = new Date();
 
-  for (var beacon in beacons){
-    console.log(beacon);
+  for (var beacon in beacons) {
     debugger;
     var blue = 0;
     var red = 0;
@@ -49,12 +48,29 @@ function update(teams) {
         beacons[beacon].score-=10;
       }
     }
-    console.log('Score for ' + beacon + ' is ' + beacons[beacon].score);
 
+    var score = beacons[beacon].score;
+    var cappedby = beacons[beacon].cappedby;
+    if (score >= 100) {
+      beacons[beacon].cappedby = 1;
+    } else if (score <= -100) {
+      beacons[beacon].cappedby = -1;
+    } else if (score <= 0 && cappedby==1) {
+      beacons[beacon].cappedby = 0;
+    } else if (score >= 0 && cappedby==-1) {
+      beacons[beacon].cappedby = 0;
+    }
+
+    if (beacons[beacon].cappedby == 1) {
+      teams.red.score++;
+    } else if (beacons[beacon].cappedby == -1) {
+      teams.blue.score++;
+    }
     // We have counted the score for this tick, reset cap
     beacons[beacon].cappers = [];
   }
-
+  console.log('red:' +teams.red.score);
+  console.log('blue:' +teams.blue.score);
 }
 
 function addUser(beaconName, id) {

@@ -27,13 +27,21 @@ socket.on('joined', function(msg){
 
 socket.on('beacons', function(beacons){
   $.each(beacons, function(beaconName,beacon){
+    if (beacon.cappedby == 1) {
+      $('#'+beaconName.split(' ', 1)[0]).parent().css('color', 'red');
+    } else if (beacon.cappedby == -1) {
+      $('#'+beaconName.split(' ', 1)[0]).parent().css('color', 'blue');
+    } else {
+      $('#'+beaconName.split(' ', 1)[0]).parent().css('color', 'black');
+    }
+    $('#'+beaconName.split(' ', 1)[0]).text(beacon.score);
     drawChart(beaconName,beacon);
   });
 });
 
 socket.on('teams', function(teams){
    $('#redheader').text("Red: "  + teams.red.score);
-   $('#blueheader').text("Blue: "  + teams.red.score);
+   $('#blueheader').text("Blue: "  + teams.blue.score);
    $('#red').empty();
    $('#blue').empty();
    $.each(teams.red.players, function(){
@@ -71,11 +79,6 @@ function drawChart(beaconName, beacon) {
 }
 
 $(document).ready(function(){
-  socket.emit('list teams');
-
   google.load("visualization", "1", {packages:["corechart"]});
   google.setOnLoadCallback(drawChart);
-
-
-
 });

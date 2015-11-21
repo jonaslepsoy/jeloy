@@ -9,42 +9,53 @@ var beaconNames = [
 ];
 
 beaconNames.forEach(function(beacon) {
-  beacons[beacon] = {score: 0, cappers: []};
+  beacons[beacon] = {
+      score: 0,
+      cappers: []
+  };
 });
+
+console.log('beacons', beacons);
 
 function update(teams) {
   var t = new Date();
 
-  for (var beacon in beacons.items){
+  for (var beacon in beacons){
     console.log(beacon);
+    debugger;
     var blue = 0;
     var red = 0;
-    for(var i = 0;i < beacons.items[beacon].cappers.length;i++){
-      console.log(beacons.items[beacon].cappers[i]);
-      console.log('Red: ', teams.red.players.indexOf(beacons.items[beacon].cappers[i]) > -1);
-      console.log('Blue: ', teams.blue.players.indexOf(beacons.items[beacon].cappers[i]) > -1);
+    for(var i = 0;i < beacons[beacon].cappers.length;i++){
+      console.log(beacons[beacon].cappers[i]);
+      console.log('Red: ', teams.red.players.indexOf(beacons[beacon].cappers[i]) > -1);
+      console.log('Blue: ', teams.blue.players.indexOf(beacons[beacon].cappers[i]) > -1);
 
-      if(teams.red.players.indexOf(beacons.items[beacon].cappers[i]) > -1){
+      if(teams.red.players.indexOf(beacons[beacon].cappers[i]) > -1){
         red++;
       }
-      if (teams.blue.players.indexOf(beacons.items[beacon].cappers[i]) > -1){
+      if (teams.blue.players.indexOf(beacons[beacon].cappers[i]) > -1){
           blue++;
       }
     }
     if(red > blue){
-      beacons.items[beacon].score++;
+      beacons[beacon].score++;
     } else if (red < blue) {
-      beacons.items[beacon].score--;
+      beacons[beacon].score--;
     }
-    console.log('Score for ' + beacon + ' is ' + beacons.items[beacon].score);
+    console.log('Score for ' + beacon + ' is ' + beacons[beacon].score);
 
     // We have counted the score for this tick, reset cap
-    beacons.items[beacon].cappers = [];
+    beacons[beacon].cappers = [];
   }
 
 }
 
+function addUser(beaconName, id) {
+    //beacons[beaconName].cappers.push(id);
+}
+
 module.exports = {
     items: beacons,
-    update: update
+    update: update,
+    addUser: addUser
 }

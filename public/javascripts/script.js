@@ -22,7 +22,7 @@ function reset() {
 
 socket.on('joined', function(msg){
   console.log(msg);
-  $('#cap').after('<button class="btn btn-default" onclick="event.preventDefault();window.cap(this)">Cap</button>');
+  $('#capbutton').removeClass("hidden");
 });
 
 socket.on('beacons', function(beacons){

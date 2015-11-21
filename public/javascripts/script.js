@@ -83,8 +83,10 @@ function drawChart(beaconName, beacon) {
     }
   };
 
-  var chart = new google.visualization.PieChart(document.getElementById(beaconName.split(' ', 1)[0]));
-  chart.draw(data, options);
+  if(beaconName.split){
+    var chart = new google.visualization.PieChart(document.getElementById(beaconName.split(' ', 1)[0]));
+    chart.draw(data, options);
+  }
 }
 
 $(document).ready(function(){

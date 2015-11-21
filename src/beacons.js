@@ -11,7 +11,8 @@ var beaconNames = [
 beaconNames.forEach(function(beacon) {
   beacons[beacon] = {
       score: 0,
-      cappers: []
+      cappers: [],
+      cappedby: 0
   };
 });
 
@@ -40,8 +41,19 @@ function update(teams) {
     } else if (red < blue) {
       beacons[beacon].score-=10;
     }
-    console.log('Score for ' + beacon + ' is ' + beacons[beacon].score);
 
+    var score = beacons[beacon].score;
+    var cappedby = beacons[beacon].cappedby;
+    if (score >= 100) {
+      beacons[beacon].cappedby = 1;
+    } else if (score <= -100) {
+      beacons[beacon].cappedby = -1;
+    } else if (score <= 0 && cappedby==1) {
+      beacons[beacon].cappedby = 0;
+    } else if (score >= 0 && cappedby==-1) {
+      beacons[beacon].cappedby = 0;
+    }
+    console.log('Score for ' + beacon + ' is ' + beacons[beacon].score);
     // We have counted the score for this tick, reset cap
     beacons[beacon].cappers = [];
   }

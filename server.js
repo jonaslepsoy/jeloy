@@ -66,6 +66,12 @@ io.on('connection', function (socket) {
     io.sockets.emit('teams',teams);
   });
 
+  socket.on('reset game', function () {
+    console.log('Resetting game');
+    init();
+    io.sockets.emit('teams',teams);
+  });
+
 });
 
 // Main game loop

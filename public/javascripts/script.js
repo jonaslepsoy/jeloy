@@ -15,9 +15,14 @@ function cap(element) {
   socket.emit('cap',beaconName);
 }
 
+function reset() {
+  console.log('Resetting game');
+  socket.emit('reset game');
+}
+
 socket.on('joined', function(msg){
   console.log(msg);
-  $('#cap').after('<button class="btn btn-default" onclick="window.cap(this)">Cap</button>');
+  $('#cap').after('<button class="btn btn-default" onclick="event.preventDefault();window.cap(this)">Cap</button>');
 });
 
 socket.on('beacons', function(beacons){

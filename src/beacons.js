@@ -36,11 +36,11 @@ function update(teams) {
       }
     }
     if(red > blue){
-      if(beacons[beacon].score) < 100) {
+      if(beacons[beacon].score < 100) {
         beacons[beacon].score+=10;
       }
     } else if (red < blue) {
-      if(beacons[beacon].score) > -100) {
+      if(beacons[beacon].score > -100) {
         beacons[beacon].score-=10;
       }
     }

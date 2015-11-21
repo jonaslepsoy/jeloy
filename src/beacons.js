@@ -27,25 +27,36 @@ function update(teams) {
     debugger;
     var blue = 0;
     var red = 0;
+    var blueRolesOnBeacon = [];
+    var redRolesOnBeacon = [];
     for(var i = 0;i < beacons[beacon].cappers.length;i++){
       console.log(beacons[beacon].cappers[i]);
       console.log('Red: ', teams.red.players.indexOf(beacons[beacon].cappers[i]) > -1);
       console.log('Blue: ', teams.blue.players.indexOf(beacons[beacon].cappers[i]) > -1);
-
       if(teams.red.players.indexOf(beacons[beacon].cappers[i]) > -1){
+        redRolesOnBeacon.push(assignedRoles[beacons[beacon].cappers[i]]);
         red++;
       }
       if (teams.blue.players.indexOf(beacons[beacon].cappers[i]) > -1){
-          blue++;
+        blueRolesOnBeacon.push(assignedRoles[beacons[beacon].cappers[i]]);
+        blue++;
       }
     }
     if(red > blue){
       if(beacons[beacon].score < 100) {
+        if (redRolesOnBeacon.indexOf("King") >= 0 && beacons[beacon].score >= 0) {
+          beacons[beacon].score+=40;
+        }
         beacons[beacon].score+=10;
+        if (beacons[beacon].score > 100) { beacons[beacon].score = 100 }
       }
     } else if (red < blue) {
       if(beacons[beacon].score > -100) {
+        if (blueRolesOnBeacon.indexOf("King") >= 0 && beacons[beacon].score <= 0) {
+          beacons[beacon].score+=40;
+        }
         beacons[beacon].score-=10;
+        if (beacons[beacon].score < -100) { beacons[beacon].score = -100 }
       }
     }
 

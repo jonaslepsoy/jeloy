@@ -112,7 +112,7 @@ initTeams();
 
 var roles = ["King", "Saboteur", "EMP", "Engineer", "Soldier"];
 
-var assignedRoles = {};
+assignedRoles = {};
 
 // On new connections
 io.on('connection', function (socket) {

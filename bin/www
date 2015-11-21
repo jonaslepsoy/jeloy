@@ -88,3 +88,109 @@ function onListening() {
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
 }
+
+
+/* Our Sockets app */
+var io = require('socket.io')(server);
+
+var teams = {};
+var beacons = {};
+
+// Init teams and the server
+function init() {
+   teams = {
+    "red":  {
+      "score": 0,
+      "players": []
+    },
+    "blue": {
+      "score": 0,
+      "players": []
+    }
+  };
+
+  beacons['Buenos Aires'] = {score: 0, cappers: []};
+  beacons['Lima'] =         {score: 0, cappers: []};
+  beacons['Santiago'] =     {score: 0, cappers: []};
+  beacons['Shanghai'] =     {score: 0, cappers: []};
+
+  console.log(beacons);
+
+  /*
+  // Set up Socket.IO to listen on port 8000
+	socket = io.listen(8000);
+
+	// Start listening for events
+	setEventHandlers();*/
+}
+
+// Init game state
+init();
+
+// On new connections
+io.on('connection', function (socket) {
+  console.log('Got a connection');
+
+  socket.on('join', function () {
+    var id = socket.id;
+    if(teams.red.players.length > teams.blue.players.length) {
+      console.log('A player have joined the blue team');
+      teams.blue.players.push(id);
+      socket.emit('joined',{'msg': 'joined team blue'});
+    } else {
+      console.log('A player have joined the red team');
+      teams.red.players.push(id);
+      socket.emit('joined',{'msg': 'joined team red'});
+    }
+    io.sockets.emit('teams',teams);
+  });
+
+  socket.on('cap', function (beaconName) {
+    console.log(socket.id, beaconName);
+    beacons[beaconName].cappers.push(socket.id);
+    console.log(beacons);
+  });
+
+  socket.on('list teams', function () {
+    io.sockets.emit('teams',teams);
+  });
+
+});
+
+// Main game loop
+setInterval(update,1000)
+
+function update(){
+  var t = new Date();
+
+  for (var beacon in beacons){
+    console.log(beacon);
+    var blue = 0;
+    var red = 0;
+    for(var i = 0;i < beacons[beacon].cappers.length;i++){
+      console.log(beacons[beacon].cappers[i]);
+      console.log('Red: ', teams.red.players.indexOf(beacons[beacon].cappers[i]) > -1);
+      console.log('Blue: ', teams.blue.players.indexOf(beacons[beacon].cappers[i]) > -1);
+
+      if(teams.red.players.indexOf(beacons[beacon].cappers[i]) > -1){
+        red++;
+      }
+      if (teams.blue.players.indexOf(beacons[beacon].cappers[i]) > -1){
+          blue++;
+      }
+    }
+    if(red > blue){
+      beacons[beacon].score++;
+    } else if (red < blue) {
+      beacons[beacon].score--;
+    }
+    console.log('Score for ' + beacon + ' is ' + beacons[beacon].score);
+
+    // We have counted the score for this tick, reset cap
+    beacons[beacon].cappers = [];
+  }
+
+  // We are done, emit status to all clients
+  io.sockets.emit('beacons',beacons);
+
+}

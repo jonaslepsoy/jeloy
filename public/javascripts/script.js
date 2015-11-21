@@ -1,4 +1,10 @@
-var socket = io('http://' + window.location.hostname + ':8000');
+var socket;
+
+if(window.location.hostname === 'localhost'){
+  socket = io('localhost:8080');
+} else {
+  socket = io('http://' + window.location.hostname);
+}
 
 function join() {
   socket.emit('join');

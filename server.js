@@ -1,6 +1,5 @@
 var app = require('http').Server();
 var io = require('socket.io')(app);
-var uuid = require('node-uuid');
 
 var teams = {};
 var beacons = {};
@@ -24,57 +23,6 @@ function init() {
   beacons['Shanghai'] =     {score: 0, cappers: []};
 
   console.log(beacons);
-
-  /*beacons = [
-    {
-      "name":   "Buenos Aires",
-      "score":  0
-    },
-    {
-      "name": "Living room west",
-      "score":  0
-    },
-    {
-      "name": "Lima",
-      "score":  0
-    },
-    {
-      "name": "Living room north",
-      "score":  0
-    },
-    {
-      "name": "Santiago",
-      "score":  0
-    },
-    {
-      "name": "Kjeller",
-      "score":  0
-    },
-    {
-      "name": "poop",
-      "score":  0
-    },
-    {
-      "name": "Shanghai",
-      "score":  0
-    },
-    {
-      "name": "Living room south",
-      "score":  0
-    },
-    {
-      "name": "Living room east",
-      "score":  0
-    },
-    {
-      "name": "Gang",
-      "score":  0
-    },
-    {
-      "name": "Blomster",
-      "score":  0
-    }
-  ];*/
 
   /*
   // Set up Socket.IO to listen on port 8000

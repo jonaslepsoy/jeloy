@@ -17,6 +17,7 @@ function cap(element) {
 
 socket.on('joined', function(msg){
   console.log(msg);
+  $('#cap').after('<button class="btn btn-default" onclick="window.cap(this)">Cap</button>');
 });
 
 socket.on('beacons', function(beacons){
@@ -37,10 +38,10 @@ socket.on('teams', function(teams){
    $('#red').empty();
    $('#blue').empty();
    $.each(teams.red.players, function(){
-     $('#red').append('<div>' + this + ' <input type="text"/><button class="btn btn-default" onclick="cap(this)">Cap</button></div>');
+     $('#red').append('<div>' + this + '</div>');
    });
    $.each(teams.blue.players, function(){
-     $('#blue').append('<div>' + this + ' <input type="text"/><button class="btn btn-default" onclick="cap()">Cap</button></div>');
+     $('#blue').append('<div>' + this + '</div>');
    })
 });
 

@@ -35,20 +35,11 @@ socket.on('beacons', function(beacons){
       $('#'+beaconName.split(' ', 1)[0]).parent().css('color', 'black');
     }
     $('#'+beaconName.split(' ', 1)[0]).text(beacon.score);
+    drawChart(beaconName,beacon);
   });
 });
 
 socket.on('teams', function(teams){
-  /*teams = {
-     "red":  {
-       "score": 0,
-       "players": []
-     },
-     "blue": {
-       "score": 0,
-       "players": []
-     }
-   };*/
    $('#redheader').text("Red: "  + teams.red.score);
    $('#blueheader').text("Blue: "  + teams.red.score);
    $('#red').empty();
@@ -61,6 +52,38 @@ socket.on('teams', function(teams){
    })
 });
 
+function drawChart(beaconName, beacon) {
+  // Red is positive
+  // Blue is negative
+  var redScore = beacon.score < 0 ? 0 : beacon.score;
+  var greyScore = beacon.score < 0 ? 100 + beacon.score : 100 - beacon.score;
+  var blueScore = -beacon.score < 0 ? 0 : -beacon.score;
+  var data = google.visualization.arrayToDataTable([
+    ['Team', 'Score'],
+    ['Blue', blueScore],
+    ['Grey', greyScore],
+    ['Red', redScore]
+  ]);
+
+  var options = {
+    legend: 'none',
+    slices: {
+      0: { color: 'blue' },
+      1: { color: 'grey' },
+      2: { color: 'red' }
+    }
+  };
+
+  var chart = new google.visualization.PieChart(document.getElementById(beaconName.split(' ', 1)[0]));
+  chart.draw(data, options);
+}
+
 $(document).ready(function(){
   socket.emit('list teams');
+
+  google.load("visualization", "1", {packages:["corechart"]});
+  google.setOnLoadCallback(drawChart);
+
+
+
 });

@@ -54,12 +54,8 @@ socket.on('teams', function(teams){
 });
 
 function drawChart(beaconName, beacon) {
-  if(beacon && !beacon.score){
+  if(beacon && typeof beacon.score === undefined){
     beacon.score = 0;
-  } else {
-    beacon = {
-      "score": 0
-    }
   }
   // Red is positive
   // Blue is negative
@@ -90,6 +86,5 @@ function drawChart(beaconName, beacon) {
 }
 
 $(document).ready(function(){
-  google.load("visualization", "1", {packages:["corechart"]});
-  google.setOnLoadCallback(drawChart);
+  google.load("visualization", "1", {packages:["corechart"]});  
 });

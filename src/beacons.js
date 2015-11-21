@@ -37,13 +37,13 @@ function update(teams) {
       console.log('Blue: ', teams.blue.players.indexOf(capperid) > -1);
       if(teams.red.players.indexOf(capperid) > -1) {
         redRolesOnBeacon.push(role);
-        if (!(beacons[beacon].score < 0 && role ==="King")) {
+        if (!(beacons[beacon].score < 0 && role ==="King") && !(beacons[beacon].score > 0 && role ==="Saboteur")) {
           red++;
         }
       }
       if (teams.blue.players.indexOf(capperid) > -1) {
         blueRolesOnBeacon.push(role);
-        if (!(beacons[beacon].score > 0 && role ==="King")) {
+        if (!(beacons[beacon].score > 0 && role ==="King") && !(beacons[beacon].score < 0 && role ==="Saboteur")) {
           blue++;
         }
       }
@@ -51,17 +51,33 @@ function update(teams) {
     if(red > blue){
       if(beacons[beacon].score < 100) {
         if (redRolesOnBeacon.indexOf("King") >= 0 && beacons[beacon].score >= 0) {
-          beacons[beacon].score+=40;
+          beacons[beacon].score += 40;
+        } else if (redRolesOnBeacon.indexOf("Saboteur") >= 0 && beacons[beacon].score < 0) {
+          beacons[beacon].score += 40;
+          if (beacons[beacon].score > 0) {
+            beacons[beacon].score = 0;
+          }
+        } else if (redRolesOnBeacon.indexOf("Saboteur") >= 0 && red == 1) {
+          //Do nothong...
+        } else {
+          beacons[beacon].score += 10;
         }
-        beacons[beacon].score+=10;
         if (beacons[beacon].score > 100) { beacons[beacon].score = 100 }
       }
     } else if (red < blue) {
       if(beacons[beacon].score > -100) {
         if (blueRolesOnBeacon.indexOf("King") >= 0 && beacons[beacon].score <= 0) {
-          beacons[beacon].score-=40;
+          beacons[beacon].score -= 40;
+        } else if (blueRolesOnBeacon.indexOf("Saboteur") >= 0 && beacons[beacon].score > 0) {
+          beacons[beacon].score -= 40;
+          if (beacons[beacon].score < 0) {
+            beacons[beacon].score = 0;
+          }
+        } else if (blueRolesOnBeacon.indexOf("Saboteur") >= 0 && blue == 1) {
+          //Do nothong...
+        } else {
+          beacons[beacon].score -= 10;
         }
-        beacons[beacon].score-=10;
         if (beacons[beacon].score < -100) { beacons[beacon].score = -100 }
       }
     }

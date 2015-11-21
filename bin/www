@@ -128,10 +128,6 @@ io.on('connection', function (socket) {
     beacons.addUser(beaconName, socket.id);
   });
 
-  socket.on('list teams', function () {
-    io.sockets.emit('teams',teams);
-  });
-
   socket.on('reset game', function () {
     console.log('Resetting game');
     beacons.init();
@@ -148,4 +144,5 @@ function update(){
     beacons.update(teams);
     // We are done, emit status to all clients
     io.sockets.emit('beacons',beacons.items);
+    io.sockets.emit('teams',teams);
 }

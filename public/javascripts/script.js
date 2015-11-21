@@ -41,7 +41,7 @@ socket.on('beacons', function(beacons){
 
 socket.on('teams', function(teams){
    $('#redheader').text("Red: "  + teams.red.score);
-   $('#blueheader').text("Blue: "  + teams.red.score);
+   $('#blueheader').text("Blue: "  + teams.blue.score);
    $('#red').empty();
    $('#blue').empty();
    $.each(teams.red.players, function(){
@@ -79,11 +79,6 @@ function drawChart(beaconName, beacon) {
 }
 
 $(document).ready(function(){
-  socket.emit('list teams');
-
   google.load("visualization", "1", {packages:["corechart"]});
   google.setOnLoadCallback(drawChart);
-
-
-
 });

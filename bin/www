@@ -95,33 +95,16 @@ function onListening() {
 /* Our Sockets app */
 var io = require('socket.io')(server);
 
-var teams = {};
-
-
-// Init teams and the server
-function init() {
-   teams = {
+var teams = {
     "red":  {
-      "score": 0,
-      "players": []
+        "score": 0,
+        "players": []
     },
     "blue": {
-      "score": 0,
-      "players": []
+        "score": 0,
+        "players": []
     }
-  };
-
-
-  /*
-  // Set up Socket.IO to listen on port 8000
-	socket = io.listen(8000);
-
-	// Start listening for events
-	setEventHandlers();*/
-}
-
-// Init game state
-init();
+};
 
 // On new connections
 io.on('connection', function (socket) {
@@ -142,9 +125,7 @@ io.on('connection', function (socket) {
   });
 
   socket.on('cap', function (beaconName) {
-    console.log(socket.id, beaconName);
-    beacons.items[beaconName].cappers.push(socket.id);
-    console.log(beacons.items);
+    beacons.addUser(beaconName, socket.id);
   });
 
   socket.on('list teams', function () {

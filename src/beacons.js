@@ -15,8 +15,6 @@ beaconNames.forEach(function(beacon) {
   };
 });
 
-console.log('beacons', beacons);
-
 function update(teams) {
   var t = new Date();
 
@@ -51,7 +49,9 @@ function update(teams) {
 }
 
 function addUser(beaconName, id) {
-    //beacons[beaconName].cappers.push(id);
+    console.log(socket.id, beaconName);
+    beacons[beaconName].cappers.push(id);
+    console.log(beacons.items);
 }
 
 module.exports = {

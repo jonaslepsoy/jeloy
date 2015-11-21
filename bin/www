@@ -96,6 +96,13 @@ var io = require('socket.io')(server);
 var teams = {};
 var beacons = {};
 
+var beaconNames = [
+  'Buenos Aires',
+  'Lima',
+  'Santiago',
+  'Shanghai'
+];
+
 // Init teams and the server
 function init() {
    teams = {
@@ -109,10 +116,9 @@ function init() {
     }
   };
 
-  beacons['Buenos Aires'] = {score: 0, cappers: []};
-  beacons['Lima'] =         {score: 0, cappers: []};
-  beacons['Santiago'] =     {score: 0, cappers: []};
-  beacons['Shanghai'] =     {score: 0, cappers: []};
+  beaconNames.forEach(function(beacon) {
+      beacons[beacon] = {score: 0, cappers: []};
+  });
 
   console.log(beacons);
 

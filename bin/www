@@ -94,8 +94,10 @@ function onListening() {
 
 /* Our Sockets app */
 var io = require('socket.io')(server);
+var teams = {};
 
-var teams = {
+var initTeams = function(){
+  teams = {
     "red":  {
         "score": 0,
         "players": []
@@ -104,7 +106,9 @@ var teams = {
         "score": 0,
         "players": []
     }
-};
+  };
+}
+initTeams();
 
 // On new connections
 io.on('connection', function (socket) {
@@ -134,8 +138,8 @@ io.on('connection', function (socket) {
 
   socket.on('reset game', function () {
     console.log('Resetting game');
-    beacons.init();
-    init();
+    beacons.initBeacons();
+    initTeams();
     io.sockets.emit('teams',teams);
   });
 

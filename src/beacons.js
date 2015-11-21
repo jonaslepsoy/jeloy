@@ -8,12 +8,17 @@ var beaconNames = [
   'Shanghai'
 ];
 
-beaconNames.forEach(function(beacon) {
-  beacons[beacon] = {
-      score: 0,
-      cappers: []
-  };
-});
+
+var initBeacons = function() {
+  beaconNames.forEach(function(beacon) {
+    beacons[beacon] = {
+        score: 0,
+        cappers: []
+    };
+  });
+}
+
+initBeacons();
 
 function update(teams) {
   var t = new Date();
@@ -60,6 +65,7 @@ function addUser(beaconName, id) {
 
 module.exports = {
     items: beacons,
+    initBeacons: initBeacons,
     update: update,
     addUser: addUser
 }

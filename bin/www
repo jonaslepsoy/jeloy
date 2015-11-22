@@ -110,7 +110,7 @@ var initTeams = function(){
 }
 initTeams();
 
-var roles = ["King", "Saboteur", "EMP", "Engineer", "Soldier"];
+var roles = ["King", "Saboteur", "Soldier"];
 
 assignedRoles = {};
 

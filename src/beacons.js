@@ -2,9 +2,9 @@
 var beacons = {};
 
 var beaconNames = [
-  'Kjeller',
+  'Storo Parkeringshus',
   'Lima',
-  'Kjeller 2',
+  'Vika P-hus',
   'Shanghai'
 ];
 

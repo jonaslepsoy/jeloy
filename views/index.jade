@@ -13,9 +13,9 @@ block content
         form.navbar-form.navbar-left(id='capform')
           .form-group
             select(id="cap")
-              option(value="Kjeller") Kjeller
+              option(value="Storo Parkeringshus") Storo
               option(value="Lima") Lima
-              option(value="Kjeller 2") Kjeller 2
+              option(value="Vika P-hus") Vika
               option(value="Shanghai") Shanghai
             button.btn.btn-default.hidden(id="capbutton" onclick="event.preventDefault();window.cap(this)") Cap
         .navbar-collapse.collapse
@@ -32,12 +32,12 @@ block content
                       a(href="#" onclick="window.reset()") Reset game
     .container-fluid
       .row.score.text-center
-        .col-xs-3 Kjeller
+        .col-xs-3 StoroParkeringshus
           span#Kjeller
         .col-xs-3 Lima
           span#Lima
-        .col-xs-3 Kjeller 2
-          span#Kjeller2
+        .col-xs-3 Vika
+          span#VikaP-hus
         .col-xs-3 Shanghai
           span#Shanghai
       .row
